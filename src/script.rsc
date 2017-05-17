@@ -145,6 +145,33 @@ Script sample runs as
 end
 ";
 
+public str example5 = "
+Script sample runs as
+	destroyWall at row: 1 col: 1
+	destroyWall at row: 1 col: 9
+	destroyWall at row: 9 col: 1
+	destroyWall at row: 9 col: 9
+	buildWall at row: 5 col: 5
+	
+	routine stepback means
+		turnLeft
+		turnLeft
+		step
+		turnLeft
+		turnLeft
+		
+		while not mark do
+			if wall ahead do
+				stepback
+				turnLeft
+			end else do
+				step
+			end
+		end
+	end
+end
+";
+
 public tuple[bool, ast::Script] parseScript(str input) {
 	ast::Script script = implode(#ast::Script, parse(#start[Script], input));
 	_script(_, commands) = script;
@@ -175,4 +202,5 @@ public void main(list[str] args) {
 	process(example2);
 	process(example3);
 	process(example4);
+	process(example5);
 }

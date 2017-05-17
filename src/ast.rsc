@@ -14,7 +14,6 @@ data Command =
   | _rc(RobotCommand robotCommand)
   | _cfc(ControlFlowCommand controlFlowCommand)
   | _cc(str comment)
-  // | _routine(str name, list[Command] body)
   | _call(str name)
   ;
 
