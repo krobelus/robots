@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="">
+  <eSubpackages name="ast">
+    <eAnnotations/>
+    <eClassifiers xsi:type="ecore:EClass" name="Script">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="commands" upperBound="-1"
+          eType="#//ast/TopLevelCommand"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TopLevelCommand" abstract="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Routine" eSuperTypes="#//ast/TopLevelCommand">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//ast/Block"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Command" abstract="true" eSuperTypes="#//ast/TopLevelCommand"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Block">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="commands" upperBound="-1"
+          eType="#//ast/Command"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="GridCommand" eSuperTypes="#//ast/Command">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="row" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="col" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="RobotCommand" eSuperTypes="#//ast/Command"/>
+    <eClassifiers xsi:type="ecore:EClass" name="ControlFlowCommand" eSuperTypes="#//ast/Command"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Comment" eSuperTypes="#//ast/Command">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Call" eSuperTypes="#//ast/Command">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="routine" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="buildWall" eSuperTypes="#//ast/GridCommand"/>
+    <eClassifiers xsi:type="ecore:EClass" name="destroyWall" eSuperTypes="#//ast/GridCommand"/>
+    <eClassifiers xsi:type="ecore:EClass" name="dropMark" eSuperTypes="#//ast/GridCommand"/>
+    <eClassifiers xsi:type="ecore:EClass" name="pickMark" eSuperTypes="#//ast/GridCommand"/>
+    <eClassifiers xsi:type="ecore:EClass" name="step" eSuperTypes="#//ast/RobotCommand"/>
+    <eClassifiers xsi:type="ecore:EClass" name="turnLeft" eSuperTypes="#//ast/RobotCommand"/>
+    <eClassifiers xsi:type="ecore:EClass" name="pick" eSuperTypes="#//ast/RobotCommand"/>
+    <eClassifiers xsi:type="ecore:EClass" name="trace" eSuperTypes="#//ast/RobotCommand">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="if" eSuperTypes="#//ast/ControlFlowCommand">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
+          eType="#//ast/or"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="then" eType="#//ast/Block"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="else" eType="#//ast/Block"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="while" eSuperTypes="#//ast/ControlFlowCommand">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
+          eType="#//ast/or"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//ast/Block"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="repeat" eSuperTypes="#//ast/ControlFlowCommand">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="times" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//ast/Block"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="or">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ands" lowerBound="1"
+          upperBound="-1" eType="#//ast/and"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="and">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="booleans" lowerBound="1"
+          eType="#//ast/boolean"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="boolean"/>
+    <eClassifiers xsi:type="ecore:EClass" name="full" eSuperTypes="#//ast/boolean"/>
+    <eClassifiers xsi:type="ecore:EClass" name="mark" eSuperTypes="#//ast/boolean"/>
+    <eClassifiers xsi:type="ecore:EClass" name="wallAhead" eSuperTypes="#//ast/boolean"/>
+    <eClassifiers xsi:type="ecore:EClass" name="heading" eSuperTypes="#//ast/boolean">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="direction" lowerBound="1"
+          eType="#//ast/Direction"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="not" eSuperTypes="#//ast/boolean">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="expression" lowerBound="1"
+          eType="#//ast/boolean"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Direction"/>
+    <eClassifiers xsi:type="ecore:EClass" name="south" eSuperTypes="#//ast/Direction"/>
+    <eClassifiers xsi:type="ecore:EClass" name="north" eSuperTypes="#//ast/Direction"/>
+    <eClassifiers xsi:type="ecore:EClass" name="west" eSuperTypes="#//ast/Direction"/>
+    <eClassifiers xsi:type="ecore:EClass" name="east" eSuperTypes="#//ast/Direction"/>
+  </eSubpackages>
+</ecore:EPackage>
